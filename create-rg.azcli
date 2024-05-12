@@ -1,0 +1,38 @@
+#Login
+az login --use-device-code
+
+#Set Subs
+az account set --subscription "My Demos"
+
+#Create Resource Group
+az group create --name rg-tst --location eastus
+
+#Create Storage Account with containers
+az storage account create \
+    --name stodogsstst \
+    --resource-group rg-tst \
+    --location eastus \
+    --sku Standard_LRS \
+    --kind StorageV2 \
+    --allow-blob-public-access false
+
+#Create Container
+az storage container create \
+    --name containertest \
+    --account-name stodogsstst
+
+az storage container create \
+    --name containersecond \
+    --account-name stodogsstst
+
+#Show Access keys
+az storage account keys list --resource-group rg-tst --name stodogsstst
+
+#Create Key Vault
+az keyvault create --name kv-cluster-dogs-tf --resource-group rg-tst --location eastus
+
+#Create Secret Key Vault
+az keyvault secret set --name octopus-apikey --vault-name kv-cluster-dogs-tf --value mykeyinsert
+
+#Show secret
+az keyvault secret show --name octo-api-key
