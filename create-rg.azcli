@@ -2,10 +2,10 @@
 az login --use-device-code
 
 #variables
-subscription="11587646-7be4-41f6-959c-39bc41011124"
-rgName="rg-stateterraform-tst-002"
+subscription="ID-subscription"
+rgName="rg-myrg-tst-002"
 location="westus2"
-resourceTags=("ccid=3568744" "teamname=cloudops")
+resourceTags=("ccid=3568744" "teamname=myteam")
 
 stoName="stogustavotst"
 stoSKU="Standard_LRS"
@@ -15,8 +15,8 @@ stoBlobAcess="false"
 containerName="containertest"
 secondContainerName="containersecond"
 
-keyvaultName="kv-dogs-tst-005"
-secretName="octopus-apikey"
+keyvaultName="kv-myvault-tst-005"
+secretName="my-apikey"
 valueSecret="mykeyvalue"
 
 #Set Subs
