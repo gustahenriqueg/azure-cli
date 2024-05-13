@@ -1,2 +1,2 @@
 # azure-cli
-Laboratório de scripts
+Scripts my lab
