@@ -1,0 +1,33 @@
+#login
+az login --use-device-code
+
+#Set Subs
+az account set --subscription "29880d47-8610-406e-86dd-e3c3008e45a3"
+
+#Create vm for k8s spot nodes
+az group create -n rg-k8s-instaces -l eastus
+az vm create \
+    --resource-group rg-k8s-instaces \
+    --name vm-k8s-nodes \
+    --image Ubuntu2204 \
+    --location eastus2 \
+    --size Standard_DS1_v2 \
+    --authentication-type password \
+    --admin-username azureuser \
+    --admin-password Partiunuvem@2024 \
+    --count 2 \
+    --priority Spot \
+    --max-price -1 \
+	--eviction-policy Deallocate
+
+#Create vm for k8s control-plane
+az group create -n rg-k8s-instaces -l eastus
+az vm create \
+    --resource-group rg-k8s-instaces \
+    --name vm-k8s-controlplane \
+    --image Ubuntu2204 \
+    --location eastus2 \
+    --size Standard_B2ls_v2 \
+    --authentication-type password \
+    --admin-username azureuser \
+    --admin-password Partiunuvem@2024

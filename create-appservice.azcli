@@ -1,0 +1,5 @@
+az group create -g rg-appservice -l eastus2
+
+az appservice plan create -g rg-appservice -n MyPlan -l eastus
+
+az webapp create -g rg-appservice -p MyPlan -n wb-tst-gusta004
