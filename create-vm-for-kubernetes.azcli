@@ -1,0 +1,48 @@
+#login
+az login --use-device-code
+
+#variables
+subscription="add-id-subscriptions"
+rgName="rg-myrg-tst-03"
+location="westus2"
+location2="eastus"
+resourceTags=("ccid=3568744" "teamname=myteam")
+nameNodeVm="vm-k8s-nodes"
+nameControlVm="vm-k8s-controlplane"
+sizeNodesVm="Standard_DS1_v2"
+controlVm="Standard_B2ls_v2"
+imgVm="Ubuntu2204"
+userLogin="$userLogin"
+passLogin="P@ssw0rd&"
+
+
+#Set Subs
+az account set --subscription $subscription
+
+#Create vm for k8s spot nodes
+az group create -n $rgName -l $location
+az vm create \
+    --resource-group $rgName \
+    --name $nameNodeVm \
+    --image $imgVm \
+    --location $location2 \
+    --size $sizeNodesVm \
+    --authentication-type password \
+    --admin-username $userLogin \
+    --admin-password $passLogin \
+    --count 2 \
+    --priority Spot \
+    --max-price -1 \
+	--eviction-policy Deallocate
+
+#Create vm for k8s control-plane
+az group create -n $rgName -l $location
+az vm create \
+    --resource-group $rgName \
+    --name $nameControlVm \
+    --image Ubuntu2204 \
+    --location $location2 \
+    --size $controlVm \
+    --authentication-type password \
+    --admin-username $userLogin \
+    --admin-password $passLogin
