@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #login
 az login --use-device-code
 
